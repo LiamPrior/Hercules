@@ -1,0 +1,23 @@
+Server:struct sockaddr_in {
+       short          sin_family;    /* AF_INET */
+  	   u_short        sin_port;      /* port number */
+       struct in_addr sin_addr;      /* Internet address */
+       char           sin_zero[8];   /* unused */
+}
+Socket: socket(int domain, int type, int protocol); 
+Socket: Is an internal endpoint for sending or receiving data at a single node in a computer network. Returns a discriptor!
+The socket() system call creates one end of the socket;
+
+AF_INET: AF_INET is ipv4!
+SOCK_STREAM: its a type! It provides sequenced, reliable, two way connection based system!
+
+socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+Socket returns a fd so set socket_fd to fd returned from socket!
+
+serv_adr.sin_family = AF_INET;
+Setting the family to IPV4. Its a short because IPV4 can only have about 4 billion users!
+
+serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
+accessing a struct inside a struct called sin_addr which accesses the data type unsigned long.
+htonl converts values between host and network byte order. The routines convery 16 and 32 bit quantities between network byte order and host byte order!
+INADDR_ANY:
