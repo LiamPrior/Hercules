@@ -1,3 +1,4 @@
+												-------------------------------------server---------------------------------------
 Server:struct sockaddr_in {
        short          sin_family;    /* AF_INET */
   	   u_short        sin_port;      /* port number */
@@ -20,4 +21,44 @@ Setting the family to IPV4. Its a short because IPV4 can only have about 4 billi
 serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
 accessing a struct inside a struct called sin_addr which accesses the data type unsigned long.
 htonl converts values between host and network byte order. The routines convery 16 and 32 bit quantities between network byte order and host byte order!
-INADDR_ANY:
+INADDR_ANY:  "INADDR_ANY" is a constant that happens to equal "zero". Its used when you don't need to bind a socket to a specific IP. When you use this value as the address when calling bind(), the socket accepts connections to all the IPs of the machine.
+
+serv_adr.sin_port = htons(4000);
+setting port equal to 4000 in a 16 bit byte oder. htons takes in data type short!
+
+bind(socket_fd, (struct sockaddr *)&serv_adr, sizeof(serv_adr));
+int bind(int socket, const struct sockaddr *address, socklen_t address_len);
+bind: binding a domain to an unnamed socket!
+
+listen(socket_fd, 10);
+int listen(int socket, int backlog);
+backlog parameter defines the maximum length for the queue of pending connections.
+Listen: listen for connections on a socket!
+
+client_fd = accept(socket_fd, (struct sockaddr *)0, 0);
+int accept(int socket, struct sockaddr *restrict address, socklen_t *restrict address_len);
+accept() extracts the first connection request on the queue of pending connections, creates a new socket with the same properties of socket, and allocates a new file descriptor for the socket.
+accept (sockfd, (struct sockaddr *)&client, &len);
+
+												-------------------------------------client----------------------------------------
+ if ((socket_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) Return (0);
+socket returns -1 if an error occures. Otherwise the return value is a descriptor referencing the socket.
+socket() creates an endpoint for communication and returns a descriptor!
+
+if (inet_pton(AF_INET, av[1], &serv_adr.sin_addr) <= 0) Return (0);
+inet_pton(int af, const char * restrict src, void * restrict dst);
+inet_pton: Internet address manipulation routines. converts a presentation format address (that is, printable form as held in a character string) to network format (usually a struct in_addr or some other internal binary representation, in network byte order).
+It returns 1 if the address was valid for the specified address family, or 0 if the address was not parseable in the specified address family, or -1 if some system error occurred (in which case errno will have been set).  This function is presently valid for AF_INET and AF_INET6.
+In EZ words... It converts an ip address string into machine readable binary!
+
+if (connect(socket_fd, (struct sockaddr*)&serv_adr, sizeof(serv_adr)) < 0) Return (0);
+int connect(int socket, const struct sockaddr *address, socklen_t address_len);
+connect -- initiate a connection on a socket;
+Upon successful completion, a value of 0 is returned.  Otherwise, a value of -1 is returned and the global integer variable errno is set to indicate the error.
+
+fgets(str, 1024, stdin);
+char *fgets(char * restrict str, int size, FILE * restrict stream);
+fgets: get a line from a stream;
+The fgets() function reads at most one less than the number of characters specified by size from the given stream and stores them in the string str.  Reading
+stops when a newline character is found, at end-of-file or error.  The newline, if any, is retained.  If any characters are read and there is no error, a
+`\0' character is appended to end the string.
