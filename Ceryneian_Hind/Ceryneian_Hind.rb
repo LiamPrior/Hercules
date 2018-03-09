@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Ceryneian_Hind.rb                                  :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: liamprior <liamprior@student.42.fr>        +#+  +:+       +#+         #
+#    By: lprior <lprior@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/08 13:20:44 by lprior            #+#    #+#              #
-#    Updated: 2018/03/08 23:34:50 by liamprior        ###   ########.fr        #
+#    Updated: 2018/03/09 14:06:48 by lprior           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,19 +45,19 @@ if ARGV[0]
                 # buffer = token.get("/v2/users/#{username}")
                 # JSON.parse(buffer)
                 # user = JSON.parse(buffer)
-                users = token.get("/v2/users/#{username}/").parsed#
-                puts "#{users}"
-                if (defined?(parsed['location']))  
-                    print "#{parsed.location}"
-                else
-                    print "Not logged in"
-                # if users[0]
-                #     puts "here"
-                #     where = users[0]["locations.host"]
-                #     # lvl = buffer.cursur_users.level
-                #     puts "#{username}".blue + " is" + " available".green + " and logged into" + " #{where}".green# + " and is" + " LVL #{lvl}"
+                # users = token.get("/v2/users/#{username}/locations").parsed
+                users = token.get("/v2/users/#{username}").parsed#
+                puts users["location"]
+                # if (defined?(users["location"])).nil? 
+                #     print "Not logged in"
                 # else
-                #     puts "OH!".red + " It Seems" + " #{username}".blue + " is not logged in ¯\\_(ツ)_/¯"
+                #     print "#{users.location}"
+                if users != '\0'
+                    where = users["locations"]
+                    # lvl = buffer.cursur_users.level
+                    puts "#{username}".blue + " is" + " available".green + " and logged into" + " #{users["location"]}".green + " and is" + " LVL #{users["cursus_users"][0]["level"]}"
+                else
+                    puts "OH!".red + " It Seems" + " #{username}".blue + " is not logged in ¯\\_(ツ)_/¯"
                 end
             rescue
                 if "#{username}" == ""
