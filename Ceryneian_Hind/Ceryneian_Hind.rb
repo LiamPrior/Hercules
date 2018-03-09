@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Ceryneian_Hind.rb                                  :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lprior <lprior@student.42.fr>              +#+  +:+       +#+         #
+#    By: liamprior <liamprior@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/08 13:20:44 by lprior            #+#    #+#              #
-#    Updated: 2018/03/08 18:59:06 by lprior           ###   ########.fr        #
+#    Updated: 2018/03/08 23:34:50 by liamprior        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,18 +39,25 @@ token = client.client_credentials.get_token
 # end
 if ARGV[0]
     if File.extname(ARGV[0]) == ".txt"
-        File.open(ARGV[0]).each_line do |line|
+        File.open(ARGV[0]).each_line do |line|# Actually fetch the contents of the remote URL as a String.
             username = line.chomp
             begin
-                place = token.get("/v2/users/#{username}/locations").parsed
-                # users = token.get("/v2/users/#{username}").parsed 
-                # puts "#{users}"
-                if place[0]
-                    where = place[0]["host"]
-                    lvl = place[0][".levels"]
-                    puts "#{username}".blue + " is" + " available".green + " and logged into" + " #{where}".green + " and is" + " LVL #{lvl}"
+                # buffer = token.get("/v2/users/#{username}")
+                # JSON.parse(buffer)
+                # user = JSON.parse(buffer)
+                users = token.get("/v2/users/#{username}/").parsed#
+                puts "#{users}"
+                if (defined?(parsed['location']))  
+                    print "#{parsed.location}"
                 else
-                    puts "OH!".red + " It Seems" + " #{username}".blue + " is not in the lab!"
+                    print "Not logged in"
+                # if users[0]
+                #     puts "here"
+                #     where = users[0]["locations.host"]
+                #     # lvl = buffer.cursur_users.level
+                #     puts "#{username}".blue + " is" + " available".green + " and logged into" + " #{where}".green# + " and is" + " LVL #{lvl}"
+                # else
+                #     puts "OH!".red + " It Seems" + " #{username}".blue + " is not logged in ¯\\_(ツ)_/¯"
                 end
             rescue
                 if "#{username}" == ""
