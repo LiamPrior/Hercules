@@ -6,7 +6,7 @@
 #    By: lprior <lprior@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/08 13:20:44 by lprior            #+#    #+#              #
-#    Updated: 2018/03/09 16:54:38 by lprior           ###   ########.fr        #
+#    Updated: 2018/03/09 17:04:53 by lprior           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,11 @@ if ARGV[0]
                   end
                 users = token.get("/v2/users/#{username}").parsed
                 if users["location"] && internet == true
-                    puts "#{username}s".blue + " first name is" + " #{users["first_name"]}".bold.underline.blue + " he/she is" + " available".green + ", logged into" + \
+                    puts "#{username}s".underline.blue + " first name is " + "#{users["first_name"]}".bold.underline.blue + " he/she is" + " available".green + ", logged into" + \
                             " #{users["location"]}".light_blue + ", is" + " LVL #{users["cursus_users"][0]["level"]}".magenta + \
                                 ", and has" + " #{users["correction_point"]}".yellow + " correction points!"
                 elsif internet == true
-                    puts "OH!".red + " It Seems" + " #{username}".blue + " is not logged in ¯\\_(ツ)_/¯"
+                    puts "OH!".red + " It Seems " + "#{username}".underline.blue + " is not logged in ¯\\_(ツ)_/¯"
                 elsif internet == false
                     until internet == true do
                         puts "API is down! Trying again!".bold.red
@@ -48,9 +48,9 @@ if ARGV[0]
                 end
             rescue
                 if ("#{username}" == "")
-                    puts "No New Lines please".red
+                    puts "No New Lines please".bold.red
                 else
-                    puts "#{username} ".blue + "does not exist".red
+                    puts "#{username}".underline.blue + " does not exist".red
                 end
             end
         end
