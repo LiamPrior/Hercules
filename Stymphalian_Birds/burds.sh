@@ -38,6 +38,12 @@ INCLUDES()
 	mkdir ./$DIRECTORY/includes
 }
 
+INIT()
+{
+	echo "initializing repo!"
+	git init ./$DIRECTORY/
+}
+
 DIR()
 {
 	echo "Directory Created!"
@@ -48,26 +54,32 @@ DIR()
 START()
 {
 	DIR
-	read -p "Include Includes? (y\n)" yn
+	read -p "Do you want git init this directory? (y/n) " yn
+	case $yn in
+		[Yy] ) INIT ;;
+		[Nn] ) echo "!!!Okay!!!"
+	esac
+	read -p "Include Includes? (y\n) " yn
 	case $yn in
 		[Yy] ) INCLUDES ;;
-		[Nn] ) echo "!!!Okay!!!" ;;
+		[Nn] ) echo "!!!Okay!!!"
 	esac
-	read -p "Include SRCS? (y/n)" yn
+	read -p "Include SRCS? (y/n) " yn
 	case $yn in
 		[Yy] ) SRCS ;; 
-		[Nn] ) echo "!!!Okay!!!" ;;
+		[Nn] ) echo "!!!Okay!!!"
 	esac
-	read -p "Include .gitignore? (y/n)" yn
+	read -p "Include .gitignore? (y/n) " yn
 	case $yn in
 		[Yy] ) GIT ;;
 		[Nn] ) echo "!!!OKAY JEEZ!!!"
 	esac
-	read -p "Include Libft or other? (y/n)" yn
+	read -p "Include Libft or other? (y/n) " yn
 	case $yn in
 		[Yy] ) CLONELINK ;;
 		[Nn] ) echo "!!!okay!!!" ;;
 	esac
+	echo "finished!"
 }
 
 if [ "$1" ] && [ "$2" ]; then
