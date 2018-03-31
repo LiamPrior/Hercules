@@ -18,14 +18,11 @@ GIT()
     echo ".apdisk" >> ./$DIRECTORY/.gitignore
 }
 
-LIBFT()
+CLONELINK()
 {
-	# read -p "whats the Github link?" PATH
-	# cd ./$DIRECTORY
-	# git clone $PATH
-	# cd ..
+	read -p "Provide Github link: " link
 	cd ./$DIRECTORY
-	git clone https://github.com/LiamPrior/libft.git
+	git clone $link libft
 	cd ..
 }
 
@@ -45,6 +42,7 @@ DIR()
 {
 	echo "Directory Created!"
 	mkdir ./$DIRECTORY/
+	touch ./$DIRECTORY/Makefile
 }
 
 START()
@@ -67,19 +65,19 @@ START()
 	esac
 	read -p "Include Libft or other? (y/n)" yn
 	case $yn in
-		[Yy] ) LIBFT ;;
+		[Yy] ) CLONELINK ;;
 		[Nn] ) echo "!!!okay!!!" ;;
 	esac
 }
 
 if [ "$1" ] && [ "$2" ]; then
 	DIRECTORY=$2
-	if [ "$2" != "" ] && ([ "$1" = "C" ] || [ "$1" = "c" ]); then
-		START
-	elif [ "$1" != "c" ] || [ "$1" != "C" ] && [ $2 != "" ]; then
-		echo "This program mainly works with C files!"
-		DIR
-		GIT
+	if ! [ -d $DIRECTORY ]; then
+		if [ "$1" ] && [ "$DIRECTORY" != "" ]; then
+			START
+		fi
+	elif [ -d $DIRECTORY ]; then
+		echo "Error: Directory Already exists!"
 	fi
 else
 	echo "Usage: (file type), (directory name)!"
