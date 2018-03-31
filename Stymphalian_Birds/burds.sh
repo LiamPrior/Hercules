@@ -57,29 +57,29 @@ START()
 	read -p "Do you want git init this directory? (y/n) " yn
 	case $yn in
 		[Yy] ) INIT ;;
-		[Nn] ) echo "!!!Okay!!!"
+		[Nn] ) echo "\033[7;49;93m!!!Okay!!!\033[0;49;39m"
 	esac
 	read -p "Include Includes? (y\n) " yn
 	case $yn in
 		[Yy] ) INCLUDES ;;
-		[Nn] ) echo "!!!Okay!!!"
+		[Nn] ) echo "\033[7;49;93m!!!Okay!!!\033[0;49;39m"
 	esac
 	read -p "Include SRCS? (y/n) " yn
 	case $yn in
 		[Yy] ) SRCS ;; 
-		[Nn] ) echo "!!!Okay!!!"
+		[Nn] ) echo "\033[7;49;93m!!!Okay!!!\033[0;49;39m"
 	esac
 	read -p "Include .gitignore? (y/n) " yn
 	case $yn in
 		[Yy] ) GIT ;;
-		[Nn] ) echo "!!!OKAY JEEZ!!!"
+		[Nn] ) echo "\033[7;49;93m!!!OKAY JEEZ!!!\033[0;49;39m"
 	esac
 	read -p "Include Libft or other? (y/n) " yn
 	case $yn in
 		[Yy] ) CLONELINK ;;
-		[Nn] ) echo "!!!okay!!!" ;;
+		[Nn] ) echo "\033[7;49;93m!!!okay!!!\033[0;49;39m"
 	esac
-	echo "finished!"
+	echo "\033[0;49;92mfinished!\033[0;49;39m"
 }
 
 if [ "$1" ] && [ "$2" ]; then
