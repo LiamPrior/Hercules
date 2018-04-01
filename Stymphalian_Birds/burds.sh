@@ -22,7 +22,7 @@ CLONELINK()
 {
 	read -p "Provide Github link: " link
 	cd ./$DIRECTORY
-	git clone $link libft
+	git clone $link
 	cd ..
 }
 
